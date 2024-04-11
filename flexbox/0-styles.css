@@ -194,7 +194,7 @@
   }
   
   [class*='col-'] {
-    float: none;
+    float: left;
     padding: 0.5rem;
   }
   
