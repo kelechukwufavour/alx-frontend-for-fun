@@ -1,3 +1,4 @@
+
 /* SUMMARY
     1. GLOBAL
     2. LAYOUT
@@ -168,8 +169,12 @@ html {
     --color-grey: #a0a0a0;
     --color-light-grey: #f3f3f3;
     --color-dark-grey: #353535;
+    --color-red: #cd3e65;
+    --color-green: #08805b;
   
     --text-color: var(--color-black);
+    --valid-color: var(--color-green);
+    --error-color: var(--color-red);
   
     --font-family-base: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     --font-family-title: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -207,11 +212,6 @@ html {
   
     /** HEADER **/
     --header-padding: 4rem 0 0;
-    --header-logo-position: relative;
-    --header-logo-link-display: inline-block;
-    --header-logo-link-position: absolute;
-    --header-logo-link-top: -1rem;
-    --header-logo-link-left: 0;
   
     /** FOOTER **/
     --footer-padding: 5rem 0 1rem;
@@ -222,7 +222,7 @@ html {
     --nav-item-font-size: var(--font-size-medium);
     --nav-item-letter-spacing: 0.04rem;
     --nav-item-display: inline-block;
-    --nav-item-margin: 0 2rem 0 0;
+    --nav-item-margin: 0 0 0 2rem;
     --nav-item-link-hover: var(--color-white);
   
     /** BUTTON **/
@@ -242,7 +242,7 @@ html {
   }
   
   /* Base
-        ============================= */
+      ============================= */
   
   *,
   *:before,
@@ -307,8 +307,18 @@ html {
     transition-property: color, background-color;
   }
   
+  .button-primary {
+    color: var(--color-white);
+    background: var(--color-primary);
+  }
+  
+  .button-primary:hover {
+    color: var(--color-primary);
+    background: var(--color-white);
+  }
+  
   /* Helpers
-        ============================= */
+      ============================= */
   
   .visually-hidden:not(:focus):not(:active) {
     position: absolute !important;
@@ -322,7 +332,7 @@ html {
   /*** 2. LAYOUT ***/
   
   /* Layout
-        ============================= */
+      ============================= */
   
   .container {
     width: 960px;
@@ -331,42 +341,39 @@ html {
   }
   
   /* Grid
-        ============================= */
+      ============================= */
+  
+  ul.row {
+    margin: -1rem;
+    padding: 0;
+    list-style: none;
+  }
   
   .row {
     display: flex;
   }
   
-  ul.row {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  
   [class*="col-"] {
-    padding: 0.5rem;
+    margin: 1rem;
   }
   
   .col-1-3 {
-    width: 33.33%;
+    width: calc((100% / 3) - 2rem);
   }
   
   .col-1-2 {
-    width: 50%;
+    width: calc((100% / 2) - 2rem);
   }
   
   /* Navbar
-        ============================= */
-  
-  .navbar-menu {
-    float: right;
-  }
+      ============================= */
   
   .nav {
     margin: 0;
     padding: 0;
     list-style: none;
     text-align: center;
+    display: flex;
   }
   
   .nav .nav-item {
@@ -374,7 +381,9 @@ html {
     font-weight: var(--nav-item-font-weight);
     font-size: var(--nav-item-font-size);
     letter-spacing: var(--nav-item-letter-spacing);
-    display: var(--nav-item-display);
+  }
+  
+  .nav .nav-item + .nav-item {
     margin: var(--nav-item-margin);
   }
   
@@ -406,7 +415,7 @@ html {
   }
   
   /* Header
-        ============================= */
+      ============================= */
   
   .header {
     padding: var(--header-padding);
@@ -415,19 +424,14 @@ html {
     background: transparent;
   }
   
-  .header-logo {
-    position: var(--header-logo-position);
-  }
-  
-  .header-logo a {
-    display: var(--header-logo-link-display);
-    position: var(--header-logo-link-position);
-    top: var(--header-logo-link-top);
-    left: var(--header-logo-link-left);
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
   
   /* Footer
-        ============================= */
+      ============================= */
   
   .footer {
     --nav-item-font-weight: normal;
@@ -460,7 +464,7 @@ html {
   /*** 3. SECTION ***/
   
   /* Section (all styles)
-        ============================= */
+      ============================= */
   
   .section {
     padding: var(--section-padding);
@@ -497,23 +501,37 @@ html {
   }
   
   /* Section theming
-        ============================= */
+      ============================= */
   
   [data-section-theme="dark"] {
     --button-color: var(--color-white);
     --text-color: var(--color-white);
     --section-title-color: var(--color-white);
-    background-color: #010101;
+    background: var(--color-black);
   }
   
   /* Section HERO
-        ============================= */
+      ============================= */
   
   .section-hero {
+    position: relative;
+    margin-top: -8.5rem;
+  }
+  
+  .hero-homepage {
+    background-image: url(images/banner-home.jpg);
     background-position: 75% 0;
     background-repeat: no-repeat;
     background-size: 90rem auto;
-    background-color: #010101;
+  }
+  
+  .section-hero .section-body {
+    padding: 10rem 4rem;
+  }
+  
+  .section-hero .section-category {
+    color: var(--color-white);
+    text-transform: uppercase;
   }
   
   .section-hero .section-title {
@@ -521,20 +539,44 @@ html {
   }
   
   .section-hero .section-inner {
-    padding: 10rem 40rem 2rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    min-height: 50vh;
+  }
+  /* Section Latest news
+      ============================= */
+  
+  .section-latest-news .row {
+    flex-direction: row-reverse;
+  }
+  
+  /* Section SERVICES
+      ============================= */
+  
+  .section-services .row {
+    flex-wrap: wrap;
+  }
+  
+  /* Section ABOUT US
+      ============================= */
+  
+  .section-about-us [class*="col-"] {
+    align-self: center;
   }
   
   /*** 4. CARD ***/
   
   /* Card (all styles)
-        ============================= */
+      ============================= */
   
   .card-category {
     color: var(--color-primary);
   }
   
   /* Card WORK
-        ============================= */
+      ============================= */
   
   .card-work .card-outer {
     position: relative;
@@ -599,7 +641,7 @@ html {
   }
   
   /* Card SERVICES
-        ============================= */
+      ============================= */
   
   .card-services .card-title {
     margin: 0;
@@ -620,7 +662,7 @@ html {
   }
   
   /* Card TESTIMONIAL
-        ============================= */
+      ============================= */
   
   .card-testimonial {
     text-align: center;
@@ -651,3 +693,282 @@ html {
     font-size: 10rem;
     z-index: -1;
   }
+  
+  /*** ARTICLE PAGE ***/
+  
+  /* Section HERO (article)
+      ============================= */
+  
+  .hero-article {
+    background-size: 150rem 100rem;
+    background-position: 50% 0;
+  }
+  
+  .hero-article::before {
+    content: "";
+    background: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 0;
+  }
+  
+  .hero-article .section-inner {
+    text-align: center;
+    align-items: center;
+    min-height: 40vh;
+  }
+  
+  .hero-article .section-body {
+    position: relative;
+    padding: 7rem 0 0;
+    z-index: 2;
+  }
+  
+  .main-article {
+    padding: 5rem 0;
+  }
+  
+  /* Post
+      ============================= */
+  
+  .post {
+    display: flex;
+    align-items: baseline;
+  }
+  
+  .post-content {
+    width: 100%;
+    padding-left: 7rem;
+  }
+  
+  .post-aside {
+    order: -1;
+    min-width: 20%;
+  }
+  
+  .post img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .post-content p:first-child {
+    font-size: var(--font-size-x-large);
+  }
+  
+  .post-content .img-caption {
+    margin: 1rem 0;
+    padding: 0 0.5rem;
+    font-size: var(--font-size-small);
+    color: var(--color-grey);
+    text-align: center;
+  }
+  
+  /* Post Meta
+      ============================= */
+  
+  .post-meta-list {
+    flex-direction: column;
+  }
+  
+  .post-meta-list strong {
+    color: var(--color-primary);
+    font-size: 1.3rem;
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: normal;
+    display: block;
+  }
+  
+  .post-meta-list [class*="post-meta"] {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 0.2rem solid var(--color-light-grey);
+  }
+  
+  .post-meta-list [class*="post-meta"]:last-child {
+    border: none;
+    margin-bottom: 3rem;
+  }
+  
+  /* Tag list
+      ============================= */
+  
+  .tag-list {
+    padding: 0;
+    list-style: none;
+  }
+  
+  .tag-list li {
+    display: inline;
+  }
+  
+  .tag-list li::after {
+    content: ", ";
+  }
+  
+  .tag-list li:last-child::after {
+    content: "";
+  }
+  
+  /*** FORM ***/
+  
+  /* Comment section
+      ============================= */
+  
+  .post-comments {
+    width: 80%;
+    margin: 10rem 0 0 auto;
+    padding-left: 7rem;
+  }
+  
+  .post-comments .section-title {
+    font-variant: small-caps;
+  }
+  
+  /* Basic form
+      ============================= */
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0;
+    margin: 0;
+  }
+  
+  fieldset {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border: none;
+    padding: 0 0 2rem;
+  }
+  
+  label {
+    cursor: pointer;
+    display: block;
+    white-space: nowrap;
+    font-size: 1.4rem;
+    padding: 0 0 0.5rem;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  textarea {
+    position: relative;
+    width: 100%;
+    padding: 1.2rem;
+    line-height: 1;
+    border: 0.1rem solid var(--color-black);
+    background-color: var(--color-white);
+    box-shadow: none;
+    outline: 0;
+  }
+  
+  input[type="text"],
+  input[type="email"] {
+    padding-right: 3rem;
+  }
+  
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  textarea:focus {
+    border: 0.1rem solid var(--color-grey);
+    background-color: var(--color-light-grey);
+  }
+  
+  ::placeholder {
+    font-style: italic;
+    font-size: var(--font-size-small);
+  }
+  
+  /* Form group
+  ============================= */
+  
+  .form-group {
+    padding: 1rem;
+    margin: 0;
+    background-color: var(--color-white);
+  }
+  
+  .form-group:focus-within {
+    background-color: var(--color-light-grey);
+    transition: 0.3s;
+  }
+  
+  /* Form field
+  ============================= */
+  
+  .form-field-container {
+    position: relative;
+  }
+  
+  .form-field-icon {
+    font-style: normal;
+  }
+  
+  /* Form help
+  ============================= */
+  
+  .form-group .form-help {
+    margin: 0;
+    line-height: 1.3;
+    letter-spacing: 0.019rem;
+    color: var(--color-dark-grey);
+    font-size: var(--font-size-small);
+    max-height: 0;
+    transition: 0.3s;
+    overflow: hidden;
+  }
+  
+  .form-group:focus-within .form-help {
+    max-height: 20rem;
+    margin: 0.4rem 0 0;
+  }
+  
+  /* Form error handling
+  ============================= */
+  
+  /* The following code is used to place the icon in the after pseudo element. Because after and before are not possible in an input, we need to use a span that will be positioned on the right of our input. */
+  
+  input:not(:placeholder-shown) ~ .form-field-icon::after {
+    height: 100%;
+    right: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    width: 1.3em;
+  }
+  
+  /* Because inputs are invalid by default, we need to be careful and show the icon when we are not in focus and when when the input is not empty (placeholder-shown). Careful with this one because it is not supported everywhere. */
+  
+  input:required:invalid:not(:focus):not(:placeholder-shown) ~ .form-field-icon::after {
+    content: "✘";
+    color: var(--error-color);
+  }
+  
+  input:required:valid ~ .form-field-icon::after {
+    content: "✔";
+    color: var(--valid-color);
+  }
+  
+  /* We want to hide the helper text when we are not in focus. The tilte allows us to select a sibling element in CSS */
+  
+  input:required:valid ~ .form-help {
+    max-height: 0;
+  }
+  
+  /* Showing a border in a different color is good but not enough. For accessibility purposes, we added an icon when the input is valid or invalid to have a visual distinction that is not only color based.*/
+  
+  input:required:invalid:not(:focus):not(:placeholder-shown),
+  textarea:invalid:not(:focus):not(:placeholder-shown) {
+    border: 0.1rem solid var(--error-color);
+  }
+  
+  input:required:valid:not(:placeholder-shown),
+  textarea:valid:not(:placeholder-shown) {
+    border: 0.1rem solid var(--valid-color);
+  }
+  
