@@ -14,17 +14,21 @@
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}main{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}[type=button],[type=reset],[type=submit],button{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details{display:block}summary{display:list-item}template{display:none}[hidden]{display:none}
 
 /* Variables
-   ============================= */
+  ============================= */
 
-   :root {
+  :root {
     --color-primary: #D73953;
     --color-black:  #090909;
     --color-white: #ffffff;
     --color-grey: #a0a0a0;
     --color-light-grey: #f3f3f3;
     --color-dark-grey: #353535;
+    --color-red: #cd3e65;
+    --color-green: #08805b;
   
     --text-color: var(--color-black);
+    --valid-color: var(--color-green);
+    --error-color: var(--color-red);
   
     --font-family-base: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     --font-family-title: 'Raleway', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -148,6 +152,16 @@
     background: var(--button-hover-background);
     transition-duration: var(--transition-duration);
     transition-property: color, background-color;
+  }
+  
+  .button-primary {
+    color: var(--color-white);
+    background: var(--color-primary);
+  }
+  
+  .button-primary:hover {
+    color: var(--color-primary);
+    background: var(--color-white);
   }
   
   /* Helpers
@@ -645,90 +659,87 @@
   .tag-list li:last-child::after {
     content: "";
   }
-
   /*** FORM ***/
-
-/* Comment section ============================= */
-.post-comments {
+  /* Comment section
+      ============================= */
+  .post-comments {
     width: 80%;
     margin: 10rem 0 0 auto;
     padding-left: 7rem;
   }
-  
   .post-comments .section-title {
     font-variant: small-caps;
   }
-  
-
-/* All fieldsets */
-fieldset {
+  /* Basic form
+      ============================= */
+  form {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0;
+    margin: 0;
+  }
+  fieldset {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     border: none;
     padding: 0 0 2rem;
-}
-
-/* Target all input type text, input type email, and textarea */
-input[type="text"],
-input[type="email"],
-textarea {
-  position: relative;
-  width: 100%;
-  padding: 1.2rem;
-  line-height: 1;
-  border: .1rem solid var(--color-black);
-  background-color: var(--color-white);
-  box-shadow: none;
-  outline: 0;
-}
-
-/* Target all input type text and input type email */
-input[type="text"],
-input[type="email"] {
-  padding-right: 3rem;
-}
-
-/* Target the focus state of all input type text, input type email, and textarea */
-input[type="text"]:focus,
-input[type="email"]:focus,
-textarea:focus {
-  border: .1rem solid var(--color-grey);
-  background-color: var(--color-light-grey);
-}
-
-/* Target the placeholder */
-::-webkit-input-placeholder {
-  font-style: italic;
-  font-size: var(--font-size-small);
-}
-
-/* Form group */
-/* ============================= */
-.form-group {
+  }
+  label {
+    cursor: pointer;
+    display: block;
+    white-space: nowrap;
+    font-size: 1.4rem;
+    padding: 0 0 .5rem;
+  }
+  input[type=text],
+  input[type=email],
+  textarea {
+    position: relative;
+    width: 100%;
+    padding: 1.2rem;
+    line-height: 1;
+    border: .1rem solid var(--color-black);
+    background-color: var(--color-white);
+    box-shadow: none;
+    outline: 0;
+  }
+  input[type=text],
+  input[type=email] {
+    padding-right: 3rem;
+  }
+  input[type=text]:focus,
+  input[type=email]:focus,
+  textarea:focus {
+    border: .1rem solid var(--color-grey);
+    background-color: var(--color-light-grey);
+  }
+  ::placeholder {
+    font-style: italic;
+    font-size: var(--font-size-small);
+  }
+  /* Form group
+  ============================= */
+  .form-group {
     padding: 1rem;
     margin: 0;
     background-color: var(--color-white);
   }
-  
   .form-group:focus-within {
     background-color: var(--color-light-grey);
     transition: .3s;
   }
-  
-  /* Form field */
-  /* ============================= */
+  /* Form field
+  ============================= */
   .form-field-container {
     position: relative;
   }
-  
   .form-field-icon {
     font-style: normal;
   }
-  
-  /* Form help */
-  /* ============================= */
-  .form-help {
+  /* Form help
+  ============================= */
+  .form-group .form-help {
     margin: 0;
     line-height: 1.3;
     letter-spacing: .019rem;
@@ -738,109 +749,72 @@ textarea:focus {
     transition: .3s;
     overflow: hidden;
   }
-  
   .form-group:focus-within .form-help {
     max-height: 20rem;
     margin: .4rem 0 0;
   }
+  /* Form error handling
+  ============================= */
+  /* The following code is used to place the icon in the after pseudo element. Because after and before are not possible in an input, we need to use a span that will be positioned on the right of our input. */
   
-
-  /* Basic form ============================= */
-  form {
-    display: flex;
-    flex-direction: column;
-    padding: 1rem 0;
-    margin: 0;
+  input:not(:placeholder-shown) ~ .form-field-icon::after {
+    height: 100%;
+    right: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    width: 1.3em;
   }
   
-  * Variable section */
-/* ============================= */
-:root {
-  /* Other variables... */
-  --color-red: #cd3e65;
-  --color-green: #08805b;
-  /* Other variables... */
-  --valid-color: var(--color-green);
-  --error-color: var(--color-red);
-}
-
-/* Base section */
-/* ============================= */
-/* Button primary */
-.button.button-primary {
-  color: var(--color-white);
-  background: var(--color-primary);
-}
-
-.button.button-primary:hover {
-  color: var(--color-primary);
-  background: var(--color-white);
-}
-
-/* Form error handling */
-/* ============================= */
-/* Icon placement for error handling */
-input:not(:placeholder-shown) ~ .form-field-icon::after {
-  height: 100%;
-  right: 0;
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  width: 1.3em;
-}
-
-/* Show 'X' icon for invalid inputs */
-input:required:invalid:not(:focus):not(:placeholder-shown) ~ .form-field-icon::after {
-  content: '✘';
-  color: var(--error-color);
-}
-
-/* Show '✔' icon for valid inputs */
-input:required:valid ~ .form-field-icon::after {
-  content: '✔';
-  color: var(--valid-color);
-}
-
-/* Hide helper text when input is valid and not in focus */
-input:required:valid ~ .form-help {
-  max-height: 0;
-}
-
-/* Border color for invalid inputs */
-input:required:invalid:not(:focus):not(:placeholder-shown),
-textarea:invalid:not(:focus):not(:placeholder-shown) {
-  border: 0.1rem solid var(--error-color);
-}
-
-/* Border color for valid inputs */
-input:required:valid:not(:placeholder-shown),
-textarea:valid:not(:placeholder-shown) {
-  border: 0.1rem solid var(--valid-color);
-}
-
-
-/*** SEARCH FORM ***/
-/* ============================= */
-.form-search {
+  /* Because inputs are invalid by default, we need to be careful and show the icon when we are not in focus and when when the input is not empty (placeholder-shown). Careful with this one because it is not supported everywhere. */
+  
+  input:required:invalid:not(:focus):not(:placeholder-shown) ~ .form-field-icon::after {
+    content: '✘';
+    color: var(--error-color);
+  }
+  
+  input:required:valid ~ .form-field-icon::after {
+    content: '✔';
+    color: var(--valid-color);
+  }
+  
+  /* We want to hide the helper text when we are not in focus. The tilte allows us to select a sibling element in CSS */
+  
+  input:required:valid ~ .form-help {
+    max-height: 0;
+  }
+  
+  /* Showing a border in a different color is good but not enough. For accessibility purposes, we added an icon when the input is valid or invalid to have a visual distinction that is not only color based.*/
+  
+  input:required:invalid:not(:focus):not(:placeholder-shown),
+  textarea:invalid:not(:focus):not(:placeholder-shown) {
+    border: 0.1rem solid var(--error-color);
+  }
+  
+  input:required:valid:not(:placeholder-shown),
+  textarea:valid:not(:placeholder-shown) {
+    border: 0.1rem solid var(--valid-color);
+  }
+  
+  /*** SEARCH FORM ***/
+  
+  .form-search {
     display: block;
     padding: .5rem 0;
     position: relative;
   }
-  
-  .search-button {
+  .form-search .search-button {
     display: inline-block;
     background: transparent;
     border: 0;
     margin: 0;
     padding: 0;
   }
-  
-  .search-icon {
+  .search-button .search-icon {
     fill: var(--color-white);
     width: 1.5rem;
     height: 1.5rem;
   }
-  
   .form-search input[type="search"] {
     display: inline-block;
     color: var(--color-white);
@@ -856,7 +830,6 @@ textarea:valid:not(:placeholder-shown) {
     z-index: 3;
     transition: width .4s cubic-bezier(0, 0.795, 0, 1);
   }
-  
   .form-search input[type="search"]:focus {
     position: relative;
     width: 15rem;
