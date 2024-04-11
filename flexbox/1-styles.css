@@ -180,11 +180,11 @@
   /* Grid
       ============================= */
   
-   ul.row {
+  ul.row {
     margin: 0;
     padding: 0;
     list-style: none;
-    display: flex; 
+    display: flex;
   }
   
   .row::after {
@@ -194,7 +194,7 @@
   }
   
   [class*='col-'] {
-    float: left;
+    float: none;
     padding: 0.5rem;
   }
   
