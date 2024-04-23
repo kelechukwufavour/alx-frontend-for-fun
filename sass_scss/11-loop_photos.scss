@@ -1,0 +1,10 @@
+/* Loop Photos */
+/* Task: Uses @each to create classes based on a list */
+
+$list-names: julien john sam damian;
+
+@each $name in $list-names {
+  .photo-#{$name} {
+    background: image-url("photos/#{$name}.jpg") no-repeat;
+  }
+}

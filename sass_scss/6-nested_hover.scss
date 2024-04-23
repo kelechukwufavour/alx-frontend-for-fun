@@ -1,0 +1,10 @@
+/* Nested Hover */
+/* Task: Changes text color on hover using nested declarations */
+
+button {
+  color: #FF0000;
+
+  &:hover {
+    color: #00FF00;
+  }
+}

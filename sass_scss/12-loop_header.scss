@@ -1,0 +1,8 @@
+/* Loop Header */
+/* Task: Uses @for to create H* tags with font sizes */
+
+@for $i from 1 through 5 {
+  h#{$i} {
+    font-size: $i * 1px;
+  }
+}

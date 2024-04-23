@@ -1,0 +1,15 @@
+/* Margin Mixin */
+/* Task: Assigns margins using a mixin */
+
+@mixin margins($left-right) {
+  margin-left: $left-right;
+  margin-right: $left-right;
+}
+
+body {
+  @include margins(10px);
+}
+
+div {
+  @include margins(15px);
+}

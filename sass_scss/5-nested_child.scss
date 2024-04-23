@@ -1,0 +1,10 @@
+/* Nested Child */
+/* Task: Assigns text colors to first child elements */
+
+body {
+  color: #3D3D3D;
+
+  > .red {
+    color: #FF0000;
+  }
+}
